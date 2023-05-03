@@ -1,0 +1,34 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .table-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+  
+  .table-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .table-button:hover {
+    background-color: #3e8e41;
+  }
+  
