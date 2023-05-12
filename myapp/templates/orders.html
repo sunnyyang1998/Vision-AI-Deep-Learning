@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+    
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            position: right
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        ul.order-items {
+            list-style-type: none;
+
+        }
+
+        .order-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 85%;
+            margin-bottom: 20px;
+            margin-right: 20px;
+            float: right;
+        }
+
+        .order-card h3 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-card p {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .order-card .item-list {
+            margin-top: 1rem;
+            margin-bottom: 0;
+        }
+
+        .order-card .item-list li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .order-card .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        
+        a.update_order_status_btn {
+            background-color: #007bff;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+        a.add_more_products_btn {
+            background-color: #007bff;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            margin-right: auto;
+            cursor: pointer;
+        }
+
+        a.update_order_status_btn:hover,
+        a.add_more_products_btn:hover {
+            background-color: #0062cc;
+        }
+
+        a.back-to-table {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        a.back-to-table:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'orders' %}">Pending Orders</a></li>
+            <li><a href="{% url 'completed_orders' %}">Completed Orders</a></li>
+        </ul>
+    </nav>
+    <h1>Orders Views</h1>
+    <div id="orders-list">
+        <ul>
+            {% for order in orders %}
+            <li class="order-card">
+                <div class="order-card">
+                    <span>{{ order }}</span>
+                    <div>
+                        <ul class="order-items">
+                            {% for item in order.items %}
+                            <li>{{ item.name }} x {{ item.quantity }} - ${{ item.price }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <p>Total price: ${{ order.total_price }}</p>
+                {% if not order.is_checkout %}
+                <div class="btn-container">
+                    <a class="add_more_products_btn" href="/menu/{{ order.table_id }}" data-order-number="{{ order.order_number }}">Add More Products</a>
+                    <a class="update_order_status_btn" href="{% url 'update_order_status' order.id %}">Checkout</a>
+                </div>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a class="back-to-table" href="{% url 'tables' %}">Back to Table Selection</a>
+    <script>
+        // 用于展示未完成订单的JavaScript代码
+    </script>
+</body>
+</html>
