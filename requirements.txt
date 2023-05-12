@@ -1,0 +1,10 @@
+asgiref==3.6.0
+async-timeout==4.0.2
+backports.zoneinfo==0.2.1
+channels==4.0.0
+channels-redis==4.1.0
+Django==4.2.1
+msgpack==1.0.5
+PyMySQL==1.0.3
+redis==4.5.4
+sqlparse==0.4.4

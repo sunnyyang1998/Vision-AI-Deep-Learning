@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+    
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    
+        nav {
+            background-color: #333;
+            padding: 1em;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            position: right
+            justify-content: center;
+        }
+    
+        nav ul li {
+            margin: 0 1em;
+        }
+    
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+        }
+    
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        .customer-cards-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .customer-card {
+            background-color: #f8f8f8;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left: 80px;
+            width: 80%;
+        }
+          
+          .customer-card h3 {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+          
+          .customer-card p {
+            margin: 5px 0;
+        }
+          
+          .customer-card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+          
+          .customer-card a:hover {
+            text-decoration: underline;
+        }
+
+        a.edit, a.remove {
+            background-color: #007bff;
+            text-decoration: none; /* 取消下划线 */
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        a.edit:hover,
+        a.remove:hover {
+            text-decoration: none; /* 取消下划线 */
+            background-color: #0062cc;
+        }
+
+        .btn-container {
+            margin-top: 20px; /* 向下添加10px的上边距 */
+        }
+
+        a.back-to-table {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        a.back-to-table:hover {
+            background-color: #45a049;
+        }
+          
+          /* Responsive design for smaller screens */
+        @media (max-width: 576px) {
+            .customer-card {
+              padding: 10px;
+              margin-bottom: 10px;
+            }
+          
+            .customer-card h3 {
+              font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'customer_add' %}">Add New Customer</a></li>
+        </ul>
+    </nav>
+
+    <h1>Customer Information</h1>
+    {% for customer in customers %}
+        <div class="customer-card">
+            <h3>{{ customer.name }}</h3>
+            <p>Customer ID: {{ customer.customer_id }}</p>
+            <p>Contact: {{ customer.contact }}</p>
+            <p>Credits: {{ customer.credits }}</p>
+            <p>Total Spent: {{ customer.total_spent }}</p>
+            <div class="btn-container">
+                <a class="edit" href="{% url 'customer_edit' customer.customer_id %}">Edit</a>
+                <a class="remove" href="{% url 'customer_remove' customer.customer_id %}">Remove</a>
+            </div>
+        </div>
+    {% endfor %}
+    <!--
+        添加新顾客、修改顾客资料、显示顾客信息的部分可以根据需要添加。
+        注意，实际的 URL 可能会根据你的 Django 配置有所不同。
+    -->
+    <a class="back-to-table" href="{% url 'tables' %}">Back to Table Selection</a>
+</body>
+</html>
