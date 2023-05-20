@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Department</title>
+    <script>
+        function openNewTab(url) {
+            window.open(url, '_blank');
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+            color: #fff;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            margin: 10px; /* 间隔 */
+            flex: 1; /* 自动平分容器的宽度 */
+          }
+          
+          .btn:hover {
+            background-color: #45a049;
+          }
+    
+        button:hover {
+            background-color: #e0e0e0;
+        }
+
+          a.back-to-login {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+    
+        a.back-to-login:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Select Department</h1>
+    <div class="container">
+        <a href="{% url 'tables' %}" class="btn btn-primary">Front Desk</a>
+        <a href="{% url 'kitchen' %}" class="btn btn-primary">Back Kitchen</a>
+    </div>
+    <a class='back-to-login' href="{% url 'login' %}">Back to Login</a>
+</body>
+</html>

@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Order Reminder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        nav {
+            background-color: #333;
+            padding: 1em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            position: right;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 1em;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            border-left: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .order-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-left: 300px;
+        }
+
+        .order-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+           
+            float: right;
+        }
+
+        .order-card li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .order-card .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        a.send-reminder {
+            background-color: #007bff;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            padding: 0.5em 1em;
+            border-radius: 5px;
+            margin-right: auto;
+            cursor: pointer;
+        }
+
+        a.send-reminder:hover {
+            background-color: #0062cc;
+        }
+
+        
+        a.back-to-table {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+        
+        a.back-to-table:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order Reminder</h1>
+    <div class="order-cards-container">
+        {% for order in reminder_orders %}
+            <div class="order-card">
+                <p>Order Number: {{ order.order_number }}</p>
+                <p>Table Number: {{ order.table_id }}</p>
+                <div class="btn-container">
+                    <a class="send-reminder" data-order-id="{{ order.id }}" onclick="sendReminder({{ order.id }})">Send Reminder</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <a class="back-to-table" href="{% url 'tables' %}">Back to Table Selection</a>
+    <!-- ...其他模板代码 -->
+    <script>
+        function sendReminder(orderId) {
+            $.ajax({
+                url: "/send_order_reminder/" + orderId + "/",
+                method: "POST",
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    alert('Reminder sent successfully');
+                },
+                error: function(xhr, status, error) {
+                    alert('Error sending reminder');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
